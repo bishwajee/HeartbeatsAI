@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("{{ url_for('static', filename='heart_image.png') }}");
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        h1 {
+            font-size: 8rem;
+            margin-bottom: 40px;
+        }
+        
+        p {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+        }
+        
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 2rem;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .prediction-label {
+            font-weight: bold;
+        }
+        
+        .low-prediction {
+            color: #28a745; /* Green color for low prediction */
+        }
+        
+        .medium-prediction {
+            color: #ffc107; /* Yellow color for medium prediction */
+        }
+        
+        .high-prediction {
+            color: #dc3545; /* Red color for high prediction */
+        }
+
+        .remedies {
+            text-align: left;
+            margin-top: 40px;
+        }
+
+        .remedies h2 {
+            font-size: 3rem;
+        }
+
+        .remedies ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 2rem;
+        }
+
+        .remedies li {
+            background-color: rgba(0, 0, 0, 0.6);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prediction Result</h1>
+    <p class="prediction-label">Prediction:</p>
+    <p class="{% if 'Very unlikely' in prediction %}low-prediction{% elif 'Unlikely' in prediction %}low-prediction{% elif 'Likely' in prediction %}medium-prediction{% else %}high-prediction{% endif %}">
+        {{ prediction }}
+    </p>
+    {% if remedies %}
+        <div class="remedies">
+            <h2>Recommended Remedies:</h2>
+            <ul>
+                {% for remedy in remedies %}
+                    <li>{{ remedy }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Prediction</title>
+    <style>
+        :root {
+            --min-fs: 1rem;
+            --max-fs: 2rem;
+            --min-vw: 20vw;
+            --max-vw: 100vw;
+            --slope: calc((var(--max-fs) - var(--min-fs)) / (var(--max-vw) - var(--min-vw)));
+            --base-fs: calc(var(--min-fs) + var(--slope) * (100vw - var(--min-vw)));
+        }
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-size: clamp(var(--min-fs), var(--base-fs), var(--max-fs));
+            line-height: 1.5;
+            color: white; /* Set text color to white */
+        }
+        
+        .background-image {
+            background-image: url("{{ url_for('static', filename='heart_image.png') }}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .content-box {
+            /* Removed background color and padding */
+            border-radius: 10px;
+            width: 50%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 4rem);
+            margin: 0 0 20px 0;
+        }
+
+        p {
+            font-size: clamp(1rem, 2.5vw, 2rem);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .buttons a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .buttons a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image">
+        <div class="content-box">
+            <h1>HeartbeatsAI</h1>
+            <p>HeartbeatsAI is a comprehensive tool designed to predict heart disease, update patient data, and compare health metrics effectively. Our vision is to leverage advanced AI technologies to enhance healthcare outcomes and ensure better patient management.</p>
+            <div class="buttons">
+                <a href="{{ url_for('predict') }}">Make a Prediction</a>
+                <a href="{{ url_for('update') }}">Update Data</a>
+                <a href="{{ url_for('compare') }}">Compare Data</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

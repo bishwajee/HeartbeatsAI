@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Prediction Form</title>
+    <style>
+        :root {
+            --min-fs: 1rem;
+            --max-fs: 2rem;
+            --min-vw: 20vw;
+            --max-vw: 100vw;
+            --slope: calc((var(--max-fs) - var(--min-fs)) / (var(--max-vw) - var(--min-vw)));
+            --base-fs: calc(var(--min-fs) + var(--slope) * (100vw - var(--min-vw)));
+        }
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-size: clamp(var(--min-fs), var(--base-fs), var(--max-fs));
+            line-height: 1.5;
+            color: white; /* Set text color to white */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{{ url_for('static', filename='heart_image.png') }}");
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(4rem, 8vw, 8rem); /* Double the font size */
+            margin: 0 0 20px 0;
+        }
+
+        .form-box {
+            width: 50%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Slightly transparent background for the form */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add some shadow for depth */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            text-align: left;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+        }
+
+        input[type="number"],
+        input[type="submit"] {
+            padding: 10px;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            border-radius: 5px;
+            border: none;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-box">
+        <h1>Heart Disease Prediction</h1>
+        <form method="post">
+            <label for="age">Age: <span class="tooltip">?<span class="tooltiptext">Enter your age in years.</span></span></label>
+            <input type="number" name="age" id="age" min="0" max="120" required placeholder="Age">
+            
+            <label for="sex">Sex: <span class="tooltip">?<span class="tooltiptext">Enter sex: 0 for female, 1 for male.</span></span></label>
+            <input type="number" name="sex" id="sex" min="0" max="1" required placeholder="Sex 0: female, 1: male">
+            
+            <label for="cp">CP: <span class="tooltip">?<span class="tooltiptext">Chest pain types: 0: Typical angina, 1: Atypical angina, 2: Non-anginal pain, 3: Asymptomatic.</span></span></label>
+            <input type="number" name="cp" id="cp" min="0" max="3" required placeholder="Chest pain types: 0: Typical angina, 1: Atypical angina, 2: Non-anginal pain, 3: Asymptomatic">
+            
+            <label for="trestbps">Trestbps: <span class="tooltip">?<span class="tooltiptext">Resting blood pressure in mm Hg.</span></span></label>
+            <input type="number" name="trestbps" id="trestbps" min="0" required placeholder="Resting blood pressure in mm Hg">
+            
+            <label for="chol">Chol: <span class="tooltip">?<span class="tooltiptext">Serum cholesterol in mg/dl.</span></span></label>
+            <input type="number" name="chol" id="chol" min="0" required placeholder="Serum cholesterol in mg/dl">
+            
+            <label for="fbs">FBS: <span class="tooltip">?<span class="tooltiptext">Fasting blood sugar: 0 for sugar < 120 mg/dl, 1 for blood sugar > 120 mg/dl.</span></span></label>
+            <input type="number" name="fbs" id="fbs" min="0" max="1" required placeholder="Fasting blood sugar 0 for sugar < 120 mg/dl, 1 for blood sugar > 120 mg/dl">
+            
+            <label for="restecg">Restecg: <span class="tooltip">?<span class="tooltiptext">Resting electrocardiographic results: 0: Normal, 1: Having ST-T wave abnormality, 2: Showing probable or definite left ventricular hypertrophy.</span></span></label>
+            <input type="number" name="restecg" id="restecg" min="0" max="2" required placeholder="Resting electrocardiographic results">
+            
+            <label for="thalach">Thalach: <span class="tooltip">?<span class="tooltiptext">Maximum heart rate achieved.</span></span></label>
+            <input type="number" name="thalach" id="thalach" min="0" required placeholder="Maximum heart rate achieved">
+            
+            <label for="exang">Exang: <span class="tooltip">?<span class="tooltiptext">Exercise-induced angina: 0 for No, 1 for Yes.</span></span></label>
+            <input type="number" name="exang" id="exang" min="0" max="1" required placeholder="Exercise-induced angina: 0 for No, 1 for Yes">
+            
+            <label for="oldpeak">Oldpeak: <span class="tooltip">?<span class="tooltiptext">ST depression induced by exercise relative to rest.</span></span></label>
+            <input type="number" name="oldpeak" id="oldpeak" step="0.1" min="0" required placeholder="ST depression induced by exercise relative to rest">
+            
+            
+            <label for="slope">Slope: <span class="tooltip">?<span class="tooltiptext">Slope of the peak exercise ST segment: 0 for Upsloping, 1 for Flat, 2 for Downsloping.</span></span></label>
+            <input type="number" name="slope" id="slope" min="0" max="2" required placeholder="Slope of the peak exercise ST segment: 0 for Upsloping, 1 for Flat, 2 for Downsloping">
+            
+            <input type="submit" value="compare">
+        </form>
+    </div>
+
+    <script>
+        const inputFields = document.querySelectorAll('input[type="number"]');
+        
+        inputFields.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.setAttribute('data-placeholder', input.placeholder);
+                input.placeholder = '';
+            });
+            
+            input.addEventListener('blur', () => {
+                input.placeholder = input.getAttribute('data-placeholder');
+            });
+        });
+    </script>
+</body>
+</html>
+

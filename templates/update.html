@@ -1,0 +1,143 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 10 23:25:03 2024
+
+@author: way2h
+"""
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Patient Data</title>
+    <style>
+        :root {
+            --min-fs: 1rem;
+            --max-fs: 2rem;
+            --min-vw: 20vw;
+            --max-vw: 100vw;
+            --slope: calc((var(--max-fs) - var(--min-fs)) / (var(--max-vw) - var(--min-vw)));
+            --base-fs: calc(var(--min-fs) + var(--slope) * (100vw - var(--min-vw)));
+        }
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-size: clamp(var(--min-fs), var(--base-fs), var(--max-fs));
+            line-height: 1.5;
+            color: white; /* Set text color to white */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{{ url_for('static', filename='heart_image.png') }}");
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(4rem, 8vw, 8rem); /* Double the font size */
+            margin: 0 0 20px 0;
+        }
+
+        .form-box {
+            width: 50%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Slightly transparent background for the form */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add some shadow for depth */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            text-align: left;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+        }
+
+        input[type="number"],
+        input[type="text"],
+        input[type="submit"] {
+            padding: 10px;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            border-radius: 5px;
+            border: none;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-box">
+        <h1>Update Patient Data</h1>
+        <form method="post">
+            <label for="age">Age:</label>
+            <input type="text" name="age" id="age" required placeholder="Enter age">
+            
+            <label for="sex">Sex:</label>
+            <input type="text" name="sex" id="sex" required placeholder="Enter sex">
+            
+            <label for="cp">CP:</label>
+            <input type="text" name="cp" id="cp" required placeholder="Enter chest pain type">
+            
+            <label for="trestbps">Trestbps:</label>
+            <input type="text" name="trestbps" id="trestbps" required placeholder="Enter resting blood pressure">
+            
+            <label for="chol">Chol:</label>
+            <input type="text" name="chol" id="chol" required placeholder="Enter serum cholesterol">
+            
+            <label for="fbs">FBS:</label>
+            <input type="text" name="fbs" id="fbs" required placeholder="Enter fasting blood sugar">
+            
+            <label for="restecg">Restecg:</label>
+            <input type="text" name="restecg" id="restecg" required placeholder="Enter resting ECG results">
+            
+            <label for="thalach">Thalach:</label>
+            <input type="text" name="thalach" id="thalach" required placeholder="Enter maximum heart rate achieved">
+            
+            <label for="exang">Exang:</label>
+            <input type="text" name="exang" id="exang" required placeholder="Enter exercise-induced angina">
+            
+            <label for="oldpeak">Oldpeak:</label>
+            <input type="text" name="oldpeak" id="oldpeak" required placeholder="Enter ST depression">
+            
+            <label for="slope">Slope:</label>
+            <input type="text" name="slope" id="slope" required placeholder="Enter slope of peak exercise ST segment">
+            
+            <label for="target">Target:</label>
+            <input type="text" name="target" id="target" required placeholder="Enter target value">
+            
+            <input type="submit" value="Update">
+        </form>
+    </div>
+
+    <script>
+        const inputFields = document.querySelectorAll('input[type="text"]');
+        
+        inputFields.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.setAttribute('data-placeholder', input.placeholder);
+                input.placeholder = '';
+            });
+            
+            input.addEventListener('blur', () => {
+                input.placeholder = input.getAttribute('data-placeholder');
+            });
+        });
+    </script>
+</body>
+</html>

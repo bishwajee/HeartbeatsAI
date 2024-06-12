@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparison Results</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("{{ url_for('static', filename='heart_image.png') }}");
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .container {
+            width: 90%;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .chart {
+            width: 40%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px auto;
+            border: 2px solid #ffffff;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Comparison Results</h1>
+        
+        <h2>Histograms</h2>
+        <div style="padding-top: 20px;">
+            <img src="data:image/png;base64,{{ hist_plot_url }}" alt="Histograms" class="chart">
+        </div>
+        
+        <h2>Scatter Plots</h2>
+        <div style="padding-top: 20px;">
+            <img src="data:image/png;base64,{{ scatter_plot_url }}" alt="Scatter Plots" class="chart">
+        </div>
+        
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+</body>
+</html>
